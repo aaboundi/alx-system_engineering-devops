@@ -1,2 +1,1 @@
-# alx-system_engineering-devops
-Shell, basics
+This repository will allow us to our first Shell scripts.
