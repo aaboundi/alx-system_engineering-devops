@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
-# Kills the process of 7-highlander.
+# Indefinitely writes I am alive! to the file /tmp/my_process
 
-pkill -SIGKILL -f "7-highlander"
+while true
+do
+    sudo bash -c 'echo "I am alive!" >> /tmp/my_process'
+    sleep 2
+done
