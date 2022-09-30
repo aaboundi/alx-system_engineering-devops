@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 # Install and configure HAProxy
 sudo apt-get update
+sudo apt-get upgrade
 sudo apt-get install -y haproxy
-sudo apt update && sudo apt upgrade -y
 
-printf%s"
+sudo chown -R "$USER":"$USER" /etc/default/haproxy
+sudo chown -R "$USER":"$USER" /etc/haproxy/haproxy.cfg
+
+echo "ENABLED=1">>/etc/default/haproxy
+
+config=\
+"
 backend myservers_backend
 	balance roundrobin
 	server 5061-web-01 44.200.176.121:80 check
@@ -13,8 +19,7 @@ frontend myservers_frontend
 	bind *:80
 	mode http
 	default_backend myservers_backend
-">>/etc/haproxy/haproxy.cfg
-
-echo "ENABLED=1">>/etc/default/haproxy
+"
+echo "$config">>/etc/haproxy/haproxy.cfg
 
 sudo service haproxy restart
